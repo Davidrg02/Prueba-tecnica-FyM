@@ -19,7 +19,12 @@ FROM nginx:alpine AS runtime
 COPY --from=build /app/dist/web/browser /usr/share/nginx/html
 COPY infra/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY infra/nginx/docker-entrypoint.sh /docker-entrypoint.d/40-fym-config.sh
-RUN chmod +x /docker-entrypoint.d/40-fym-config.sh
+# Normaliza a LF por si el script llegó con CRLF (Windows + core.autocrlf al
+# clonar el repositorio): un shebang "#!/bin/sh\r" hace que el intérprete no
+# se encuentre dentro del contenedor Linux.
+RUN tr -d '\r' < /docker-entrypoint.d/40-fym-config.sh > /tmp/40-fym-config.sh && \
+    mv /tmp/40-fym-config.sh /docker-entrypoint.d/40-fym-config.sh && \
+    chmod +x /docker-entrypoint.d/40-fym-config.sh
 
 EXPOSE 80
 
