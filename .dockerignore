@@ -1,0 +1,7 @@
+**/node_modules/
+**/dist/
+**/.angular/
+src/api/**/bin/
+src/api/**/obj/
+.git
+*.md

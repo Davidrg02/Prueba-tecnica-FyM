@@ -1,0 +1,77 @@
+<div class="fym-page">
+  <header class="welcome">
+    <h1>Hola, {{ currentUser()?.fullName }} 👋</h1>
+    <p>Este es el panel general del sistema de usuarios y roles de FyM Technology.</p>
+  </header>
+
+  @if (!canSeeUserStats) {
+    <mat-card class="fym-card">
+      <mat-card-content>
+        <p>
+          Su rol actual solo tiene acceso a su perfil. Si necesita permisos adicionales, contacte a
+          un administrador.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  } @else if (loading()) {
+    <div class="loading-row">
+      <mat-spinner diameter="32" />
+    </div>
+  } @else {
+    <div class="stat-grid">
+      <mat-card class="fym-card stat-card">
+        <mat-icon>group</mat-icon>
+        <div>
+          <span class="stat-value">{{ totalUsers() }}</span>
+          <span class="stat-label">Usuarios totales</span>
+        </div>
+      </mat-card>
+      <mat-card class="fym-card stat-card">
+        <mat-icon class="success">check_circle</mat-icon>
+        <div>
+          <span class="stat-value">{{ activeUsers() }}</span>
+          <span class="stat-label">Usuarios activos</span>
+        </div>
+      </mat-card>
+      <mat-card class="fym-card stat-card">
+        <mat-icon class="muted">block</mat-icon>
+        <div>
+          <span class="stat-value">{{ inactiveUsers() }}</span>
+          <span class="stat-label">Usuarios inactivos</span>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="two-column">
+      <mat-card class="fym-card">
+        <mat-card-header>
+          <mat-card-title>Usuarios por rol</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="role-list">
+          @for (role of roles(); track role.id) {
+            <div class="role-row">
+              <span class="role-name">{{ role.name }}</span>
+              <span class="role-count">{{ role.userCount }}</span>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="fym-card">
+        <mat-card-header>
+          <mat-card-title>Últimos usuarios registrados</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="recent-list">
+          @for (user of recentUsers(); track user.id) {
+            <a class="recent-row" [routerLink]="['/users', user.id]">
+              <span class="recent-name">{{ user.fullName }}</span>
+              <fym-role-chips [roles]="user.roles" />
+            </a>
+          } @empty {
+            <p class="empty">Aún no hay usuarios registrados.</p>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+</div>

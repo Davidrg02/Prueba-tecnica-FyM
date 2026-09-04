@@ -1,0 +1,63 @@
+<mat-sidenav-container class="fym-shell">
+  <mat-sidenav
+    [mode]="sidenavMode()"
+    [opened]="sidenavMode() === 'side' || sidenavOpened()"
+    class="fym-sidenav"
+  >
+    <div class="brand">
+      <span class="brand-mark">FyM</span>
+      <span class="brand-name">Technology</span>
+    </div>
+
+    <mat-nav-list>
+      @for (item of navItems(); track item.path) {
+        <a
+          mat-list-item
+          [routerLink]="item.path"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="fym-toolbar">
+      @if (sidenavMode() === 'over') {
+        <button mat-icon-button (click)="toggleSidenav()" aria-label="Abrir menú">
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+
+      <span class="fym-spacer"></span>
+
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-trigger">
+        <span class="avatar">{{ initials() }}</span>
+        <span class="user-info">
+          <span class="user-name">{{ currentUser()?.fullName }}</span>
+          <span class="user-role">{{ primaryRoleLabel() }}</span>
+        </span>
+        <mat-icon>expand_more</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <a mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>Mi perfil</span>
+        </a>
+        <mat-divider />
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main class="fym-content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

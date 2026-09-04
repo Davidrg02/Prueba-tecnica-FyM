@@ -1,0 +1,27 @@
+# Secretos locales
+.env
+
+# .NET
+**/bin/
+**/obj/
+**/*.user
+*.log
+logs/
+
+# Node / Angular
+**/node_modules/
+**/dist/
+**/.angular/
+npm-debug.log*
+
+# Certificados generados localmente (ver infra/certs/generate-certs.sh)
+infra/certs/*.crt
+infra/certs/*.key
+infra/certs/*.csr
+
+# Editor / SO
+.vs/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db

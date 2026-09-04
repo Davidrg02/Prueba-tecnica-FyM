@@ -1,0 +1,114 @@
+.loading-row {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.form-main {
+
+  .read-only-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--fym-text-muted);
+    font-size: 0.8rem;
+  }
+
+  .read-only-badge mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 4px 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-grid mat-form-field {
+  width: 100%;
+}
+
+.permission-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.permission-group {
+  border: 1px solid var(--fym-border);
+  border-radius: var(--fym-radius-sm);
+  padding: 14px;
+}
+
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.module-header strong {
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.4px;
+  color: var(--fym-primary-700);
+}
+
+.permission-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+
+.permission-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--fym-radius-sm);
+}
+
+.permission-option:hover {
+  background: var(--fym-primary-050);
+}
+
+.permission-option input {
+  margin-top: 3px;
+}
+
+.code {
+  display: block;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--fym-text);
+}
+
+.permission-option small {
+  color: var(--fym-text-muted);
+  font-size: 0.74rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 24px;
+}
+
+@media (max-width: 700px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,126 @@
+.welcome h1 {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.welcome p {
+  margin: 0;
+  color: var(--fym-text-muted);
+}
+
+.loading-row {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-top: 3px solid var(--fym-accent);
+}
+
+.stat-card mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: var(--fym-primary-500);
+}
+
+.stat-card mat-icon.success {
+  color: var(--fym-success);
+}
+
+.stat-card mat-icon.muted {
+  color: var(--fym-text-muted);
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--fym-text);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--fym-text-muted);
+}
+
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.role-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--fym-border);
+}
+
+.role-row:last-child {
+  border-bottom: none;
+}
+
+.role-count {
+  font-weight: 700;
+  color: var(--fym-primary-700);
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recent-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--fym-border);
+  text-decoration: none;
+  color: inherit;
+}
+
+.recent-row:last-child {
+  border-bottom: none;
+}
+
+.recent-row:hover .recent-name {
+  color: var(--fym-primary-700);
+}
+
+.role-row, .recent-row {
+  transition: padding 160ms ease, background-color 160ms ease;
+}
+
+.role-row:hover, .recent-row:hover {
+  padding-left: 8px;
+  padding-right: 8px;
+  background: var(--fym-primary-050);
+}
+
+.empty {
+  color: var(--fym-text-muted);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 860px) {
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+}

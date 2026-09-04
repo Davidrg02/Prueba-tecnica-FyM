@@ -1,0 +1,127 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$blue-palette,
+      tertiary: mat.$azure-palette,
+    ),
+    typography: (
+      plain-family: 'Aptos, "Segoe UI Variable", "Segoe UI", sans-serif',
+      brand-family: 'Aptos Display, "Segoe UI Variable", "Segoe UI", sans-serif',
+    ),
+    density: -1,
+  ));
+
+  // Marca FyM Technology: azul rey, sobre la paleta M3 generada arriba.
+  // Angular Material expone estos roles como variables CSS de sistema
+  // pensadas para sobrescribirse: https://material.angular.dev/guide/system-variables
+  --mat-sys-primary: #0877b5;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: #d9effb;
+  --mat-sys-on-primary-container: #063a5a;
+  --mat-sys-secondary: #168dcc;
+  --mat-sys-on-secondary: #ffffff;
+
+  // Tokens propios de la aplicación (docs/plan sección 6.3).
+  --fym-primary-900: #063a5a;
+  --fym-primary-700: #075985;
+  --fym-primary-500: #0877b5;
+  --fym-primary-300: #4fb3df;
+  --fym-primary-050: #e8f5fb;
+  --fym-accent: #169bd5;
+  --fym-success: #10b981;
+  --fym-warn: #f59e0b;
+  --fym-danger: #e11d48;
+  --fym-surface: #ffffff;
+  --fym-bg: #f6f8fc;
+  --fym-bg-deep: #eef3fb;
+  --fym-border: #e2e8f0;
+  --fym-text: #0f172a;
+  --fym-text-muted: #64748b;
+  --fym-radius-sm: 8px;
+  --fym-radius-md: 12px;
+  --fym-radius-lg: 16px;
+  --fym-shadow-1: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.1);
+  --fym-shadow-2: 0 14px 34px rgba(6, 89, 133, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color-scheme: light;
+  background: linear-gradient(135deg, var(--fym-bg) 0%, var(--fym-bg-deep) 100%);
+  color: var(--fym-text);
+  font: var(--mat-sys-body-medium);
+}
+
+a {
+  color: var(--fym-primary-500);
+}
+
+.fym-card {
+  background: var(--fym-surface);
+  border: 1px solid var(--fym-border);
+  border-radius: var(--fym-radius-md);
+  box-shadow: var(--fym-shadow-1);
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.fym-card:hover {
+  box-shadow: var(--fym-shadow-2);
+}
+
+.fym-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fym-enter 280ms ease both;
+}
+
+button, a {
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+@keyframes fym-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.fym-spacer {
+  flex: 1 1 auto;
+}
+
+.fym-snack-success .mdc-snackbar__surface {
+  background-color: var(--fym-success) !important;
+}
+
+.fym-snack-error .mdc-snackbar__surface {
+  background-color: var(--fym-danger) !important;
+}
+
+.fym-snack-info .mdc-snackbar__surface {
+  background-color: var(--fym-primary-700) !important;
+}
+
+.cdk-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}

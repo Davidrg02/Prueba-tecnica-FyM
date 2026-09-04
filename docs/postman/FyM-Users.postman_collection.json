@@ -1,0 +1,126 @@
+{
+  "info": {
+    "name": "FyM Technology - Usuarios y Roles",
+    "description": "Colección de referencia para la API de usuarios y roles. El login captura automáticamente el access token en la variable de colección {{accessToken}}, usada por el resto de las peticiones.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api/v1" },
+    { "key": "accessToken", "value": "" },
+    { "key": "superAdminEmail", "value": "admin@fymtechnology.com" },
+    { "key": "superAdminPassword", "value": "Adm1n#FyM2026*" },
+    { "key": "userId", "value": "" },
+    { "key": "roleId", "value": "2" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{accessToken}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (super administrador)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.collectionVariables.set('accessToken', body.accessToken);",
+                  "pm.collectionVariables.set('userId', body.user.id);",
+                  "pm.test('200 OK', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{superAdminEmail}}\",\n  \"password\": \"{{superAdminPassword}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Quién soy (/auth/me)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/auth/me" }
+        },
+        {
+          "name": "Refresh token (usa la cookie del navegador/Postman)",
+          "request": { "method": "POST", "url": "{{baseUrl}}/auth/refresh" }
+        },
+        {
+          "name": "Logout",
+          "request": { "method": "POST", "url": "{{baseUrl}}/auth/logout" }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Listar usuarios (paginado)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/users?page=1&pageSize=10" }
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userName\": \"jperez\",\n  \"email\": \"jperez@fym.com\",\n  \"password\": \"Adm1n#Test2026*\",\n  \"firstName\": \"Juan\",\n  \"lastName\": \"Pérez\",\n  \"roleIds\": [{{roleId}}]\n}"
+            }
+          }
+        },
+        {
+          "name": "Ver usuario por id",
+          "request": { "method": "GET", "url": "{{baseUrl}}/users/{{userId}}" }
+        },
+        {
+          "name": "Desactivar usuario",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/users/{{userId}}/status",
+            "body": { "mode": "raw", "raw": "{ \"isActive\": false }" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Roles y permisos",
+      "item": [
+        {
+          "name": "Listar roles",
+          "request": { "method": "GET", "url": "{{baseUrl}}/roles" }
+        },
+        {
+          "name": "Listar permisos agrupados",
+          "request": { "method": "GET", "url": "{{baseUrl}}/permissions" }
+        }
+      ]
+    },
+    {
+      "name": "Catálogos",
+      "item": [
+        {
+          "name": "Tipos de documento",
+          "request": { "method": "GET", "url": "{{baseUrl}}/catalogs/document-types" }
+        }
+      ]
+    },
+    {
+      "name": "Salud",
+      "item": [
+        { "name": "Health (liveness)", "request": { "method": "GET", "url": "http://localhost:8080/health" } },
+        { "name": "Health (readiness, toca la BD)", "request": { "method": "GET", "url": "http://localhost:8080/health/ready" } }
+      ]
+    }
+  ]
+}
