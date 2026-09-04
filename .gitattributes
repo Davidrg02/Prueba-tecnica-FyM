@@ -1,0 +1,9 @@
+# Los scripts de shell deben mantener saltos de línea LF siempre,
+# sin importar el core.autocrlf del cliente Git: un CRLF en el shebang
+# ("#!/bin/sh\r") hace que el intérprete no se encuentre dentro del
+# contenedor Linux ("not found").
+*.sh text eol=lf
+
+# El resto de archivos de texto se normaliza a LF al hacer commit;
+# el checkout local respeta la configuración del sistema operativo.
+* text=auto
